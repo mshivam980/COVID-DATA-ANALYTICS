@@ -14,6 +14,8 @@ Where
 order by country,date;
 
 
+-------------------------------------------------------------------------------------------------------------
+
 -- Data to be starting with
 
 SELECT 
@@ -24,6 +26,8 @@ Where
 	continent IS NOT NULL AND total_cases!=0 AND population IS NOT NULL
 order by country,date;
 
+
+-------------------------------------------------------------------------------------------------------------
 
 -- Total Cases VS Total deaths for India, 
 -- Shows likelihood of dying if you contract COVID in India
@@ -39,6 +43,8 @@ ORDER BY
 	country,date;
 
 
+-------------------------------------------------------------------------------------------------------------
+
 -- Total Cases VS Population, 
 -- Shows percentage of population infected with COVID 
 
@@ -52,6 +58,8 @@ WHERE
 ORDER BY 
 	country,date;
 
+
+-------------------------------------------------------------------------------------------------------------
 
 -- Countries and their Highest Infection Rate compared to Population
 
@@ -70,6 +78,8 @@ ORDER BY
 	;
 
 
+-------------------------------------------------------------------------------------------------------------
+
 -- Countries and their Highest Death Count
 
 SELECT 
@@ -84,6 +94,8 @@ ORDER BY
 	TotalDeathCount DESC
 	;
 
+
+-------------------------------------------------------------------------------------------------------------
 
 -- DATA BY CONTINENT
 -- Countries and their Highest Death Count
@@ -108,6 +120,8 @@ ORDER BY
 	;
 
 
+-------------------------------------------------------------------------------------------------------------
+
 -- GLOBAL NUMBERS
 
 SELECT
@@ -121,6 +135,8 @@ WHERE
 --GROUP BY YEAR(date)
 	;
 
+
+-------------------------------------------------------------------------------------------------------------
 
 -- Total Population vs Vaccinations
 -- Shows No of Population that has recieved at least one Covid Vaccine
@@ -139,6 +155,8 @@ ORDER BY
 	CD.country,CD.date
 	;
 
+
+-------------------------------------------------------------------------------------------------------------
 
 -- Using CTE to perform to Show Total Vaccinations VS Population 
 
@@ -162,6 +180,8 @@ FROM
 	;
 
 
+-------------------------------------------------------------------------------------------------------------
+
 -- Temp Table to show percentage of Indian population vaccinncated and fully vaccinated over time
 
 IF OBJECT_ID('tempdb..#PercPopVacc') IS NOT NULL
@@ -179,14 +199,13 @@ RollingPeopleFullyVaccinated INT
 )
 
 INSERT INTO #PercPopVacc
-
 SELECT 
 	CD.continent, CD.country ,CD.date ,
 	CONVERT(int,CD.population) , 
 	CONVERT(int,CV.people_vaccinated),
-	MAX(CONVERT(int, CV.people_vaccinated)) OVER(PARTITION BY CD.country ORDER BY CD.country,CD.date) AS RollingPeopleVaccinated,
+	MAX(ROUND(CONVERT(float, CV.people_vaccinated),0)) OVER(PARTITION BY CD.country ORDER BY CD.country,CD.date) AS RollingPeopleVaccinated,
 	CV.people_fully_vaccinated,
-	MAX(CONVERT(int, CV.people_fully_vaccinated)) OVER(PARTITION BY CD.country ORDER BY CD.country,CD.date) AS RollingPeopleFullyVaccinated
+	MAX(ROUND(CONVERT(float, CV.people_fully_vaccinated),0)) OVER(PARTITION BY CD.country ORDER BY CD.country,CD.date) AS RollingPeopleFullyVaccinated
 FROM 
 	PortfolioProject.dbo.Covid_Deaths AS CD
 	INNER JOIN 
@@ -201,15 +220,18 @@ SELECT *,
 FROM 
 	#PercPopVacc;
 
+-------------------------------------------------------------------------------------------------------------
 
 -- Creating View to store data for later visualizations
 
+IF OBJECT_ID('PercentPopulationVaccinated', 'V') IS NOT NULL
+    DROP VIEW PercentPopulationVaccinated;
 CREATE VIEW PercentPopulationVaccinated AS
 SELECT 
 	CD.continent AS Continent, CD.country AS Country,CD.date AS Date,
 	CONVERT(int,CD.population) AS Population, 
-	MAX(CONVERT(int, CV.people_vaccinated)) OVER(PARTITION BY CD.country ORDER BY CD.country,CD.date) AS RollingPeopleVaccinated,
-	MAX(CONVERT(int, CV.people_fully_vaccinated)) OVER(PARTITION BY CD.country ORDER BY CD.country,CD.date) AS RollingPeopleFullyVaccinated
+	MAX(ROUND(CONVERT(float, CV.people_vaccinated),0)) OVER(PARTITION BY CD.country ORDER BY CD.country,CD.date) AS RollingPeopleVaccinated,
+	MAX(ROUND(CONVERT(float, CV.people_fully_vaccinated),0)) OVER(PARTITION BY CD.country ORDER BY CD.country,CD.date) AS RollingPeopleFullyVaccinated
 FROM 
 	PortfolioProject.dbo.Covid_Deaths AS CD
 	INNER JOIN 
