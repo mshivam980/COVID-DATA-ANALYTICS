@@ -1,6 +1,7 @@
 # COVID-DATA-ANALYTICS
 COVID-19 Data Exploration Repository
-Overview
+
+Overview:
 This repository contains SQL scripts for analyzing COVID-19 data, utilizing techniques such as joins, common table expressions (CTEs), temporary tables, window functions, aggregate functions, and data type conversions. The analysis includes comparisons of total cases, deaths, vaccinations, and population impacts to gain insights into the effects of COVID-19 globally and within specific countries.
 
 Key Features:
