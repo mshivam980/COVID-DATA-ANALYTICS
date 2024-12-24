@@ -1,61 +1,58 @@
 # COVID-DATA-ANALYTICS
-COVID-19 Data Exploration Repository
+## Overview
+This repository contains SQL scripts for exploring and analyzing COVID-19 data. Key techniques include joins, common table expressions (CTEs), temporary tables, window functions, aggregate functions, and data type conversions. The analysis focuses on understanding the global and country-specific impacts of COVID-19, covering cases, deaths, vaccinations, and population metrics.
 
+---
 
-Overview:
+## Key Features
 
-This repository contains SQL scripts for analyzing COVID-19 data, utilizing techniques such as joins, common table expressions (CTEs), temporary tables, window functions, aggregate functions, and data type conversions. The analysis includes comparisons of total cases, deaths, vaccinations, and population impacts to gain insights into the effects of COVID-19 globally and within specific countries.
+### 1. **Data Filtering and Transformation**
+- Filtered out invalid or incomplete data (e.g., records with null continents or zero cases).
+- Standardized and formatted metrics, such as calculating percentages of the population infected or vaccinated.
 
+### 2. **Country-Level Analysis**
+- **India**: Examined the likelihood of death upon infection and the percentage of the population infected.
+- Identified countries with the highest infection and death rates.
+- Computed dynamic metrics using aggregate and window functions.
 
-Key Features:
+### 3. **Continental Insights**
+- Summarized cumulative deaths and populations by continent.
+- Provided a region-based perspective on the pandemic’s impact.
 
-Data Filtering and Transformation:
+### 4. **Global Metrics**
+- Calculated total global cases, deaths, and fatality rates.
+- Monitored worldwide vaccination rollouts and their relationship to population metrics.
 
-Filter data by valid records (e.g., non-null continents and non-zero cases).
-Convert and format data for meaningful presentation (e.g., percentages of population infected or vaccinated).
+### 5. **Vaccination Analysis**
+- Tracked vaccination progress by country and continent.
+- Calculated percentages of vaccinated and fully vaccinated populations over time.
 
+### 6. **Advanced SQL Techniques**
+- **CTEs and Temporary Tables**: Analyzed vaccination progression dynamically for India and global metrics.
+- **View Creation**: Built persistent views to facilitate visualization in tools like Power BI or Tableau.
 
-Country-Level Analysis:
+---
 
-India Example: Likelihood of death upon infection and population percentage infected.
-Highest infection and death rates by country.
-Dynamic percentage metrics using aggregate and window functions.
+## Skills Demonstrated
+- **SQL Techniques**: Joins, Common Table Expressions (CTEs), Temporary Tables, and Window Functions.
+- **Data Wrangling**: Aggregation, data type conversions, and percentage calculations.
+- **Visualization Preparation**: Created reusable views for downstream analytics.
 
+---
 
-Continental Insights:
-Summarize data by continent, showing cumulative deaths and populations.
-Enable region-level perspectives on the pandemic’s impacts.
+## Dataset Information
+The analysis relies on COVID-19 data sourced from:
+- [Our World in Data (OWID) COVID-19 Deaths](https://ourworldindata.org/covid-deaths)
+- [OWID COVID-19 ETL API](https://docs.owid.io/projects/etl/api/covid/)
 
+This dataset includes:
+- Daily COVID-19 case and death counts.
+- Vaccination data for each country over time.
+- Population metrics for comparative analysis.
 
-Global Metrics:
-Calculate overall global cases, deaths, and fatality rates.
-Monitor vaccination rollouts compared to the global population.
+---
 
-
-Advanced SQL Techniques:
-
-CTEs and Temp Tables: Analyze vaccination progression dynamically for India and globally.
-View Creation: Persistent views to simplify visualization tasks in tools like Power BI or Tableau.
-
-
-Vaccination Analysis:
-
-Track total vaccinations and percentages of vaccinated and fully vaccinated populations for individual countries and continents.
-
-
-Skills Used:
-
-SQL Techniques: Joins, Common Table Expressions (CTEs), Window Functions, Temporary Tables.
-Data Wrangling: Aggregate functions, data type conversions, percentage calculations.
-View Creation: This is for optimized and reusable data visualization preparation.
-
-
-Dataset:
-
-The dataset used for analysis includes:
-COVID-19 deaths and case counts.
-Vaccination data per country over time.
-Population metrics.
-
-https://docs.owid.io/projects/etl/api/covid/
-https://ourworldindata.org/covid-deaths
+## How to Use
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/your-username/covid-data-analytics.git
